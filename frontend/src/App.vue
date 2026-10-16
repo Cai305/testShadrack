@@ -7,8 +7,11 @@ const items = ref([])
 const newName = ref('')
 const formError = ref('')
 
+// Empty locally (Vite proxies /api); set to the Vercel backend in .env.production.
+const API_BASE = import.meta.env.VITE_API_URL || ''
+
 async function api(path, options = {}) {
-  const res = await fetch('/api' + path, {
+  const res = await fetch(API_BASE + '/api' + path, {
     headers: { 'Content-Type': 'application/json' },
     ...options
   })

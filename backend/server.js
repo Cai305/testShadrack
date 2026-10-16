@@ -1,5 +1,12 @@
 const fastify = require('fastify')({ logger: true })
 
+// The prod frontend calls this API from another domain, so allow cross-origin requests.
+// Set CORS_ORIGIN to a comma-separated list of origins to lock it down.
+fastify.register(require('@fastify/cors'), {
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : true,
+  methods: ['GET', 'POST', 'PATCH', 'OPTIONS']
+})
+
 const startedAt = new Date()
 
 const items = [
